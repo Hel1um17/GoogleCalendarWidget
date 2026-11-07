@@ -93,6 +93,7 @@ class CalendarWidgetProvider : AppWidgetProvider() {
         private const val CELL_FIXED_HEIGHT_DP = 16
         private const val EVENT_SLOT_HEIGHT_DP = 13
         private const val MAX_EVENT_SLOTS = 4
+        private const val WEEK_COUNT = 6
 
         /** LocalDate.toEpochDay() 与 Julian Day 的固定偏移。 */
         private const val JULIAN_DAY_OFFSET = 2440588L
@@ -447,16 +448,21 @@ class CalendarWidgetProvider : AppWidgetProvider() {
     }
 
     /**
-     * 计算当月网格。周一为 1，所以 1 号前面的空位数 = dayOfWeek.value - 1。
-     * 网格覆盖 4~6 周，前后补齐日期也会显示，也会展示对应日程。
+     * 固定生成 6 周 x 7 天的完整网格。
+     *
+     * 不再根据当月是 4/5/6 周去隐藏行，而是始终补齐前后月份的日期：
+     * - 1 号前面的空位用上个月日期补齐；
+     * - 最后一周不足 7 天时用下个月日期补齐；
+     * - 这样每次翻页 42 个格子都有确定日期，不会残留上个月的行。
+     *
+     * 非当前月份的日期会使用较暗的文字颜色。
      */
     private fun buildMonthCells(month: YearMonth, today: LocalDate): List<CalendarDay> {
         val firstDay = month.atDay(1)
         val leadingEmptyCells = firstDay.dayOfWeek.value - 1
-        val weekCount = (leadingEmptyCells + month.lengthOfMonth() + 6) / 7
         val gridStart = firstDay.minusDays(leadingEmptyCells.toLong())
 
-        return List(weekCount * 7) { index ->
+        return List(WEEK_COUNT * 7) { index ->
             val date = gridStart.plusDays(index.toLong())
             CalendarDay(
                 date = date,
@@ -504,7 +510,8 @@ class CalendarWidgetProvider : AppWidgetProvider() {
 
     /**
      * widget_calendar.xml 已经静态包含 6 个周行、每行 7 个日期格、每格 4 个任务槽。
-     * 这里只隐藏多余周行并更新已有 View，完全不执行 addView / removeAllViews。
+     * 每次翻页都会重新绑定全部 42 个格子，不隐藏/跳过任何一行，
+     * 从根源上避免底部行残留上个月的数据。
      */
     private fun bindCalendarGrid(
         context: Context,
@@ -518,15 +525,10 @@ class CalendarWidgetProvider : AppWidgetProvider() {
         val todayTextColor = context.getColor(R.color.today_text)
         val zone = ZoneId.systemDefault()
         val googleCalendarInstalled = isGoogleCalendarInstalled(context)
-        val weekCount = snapshot.cells.size / 7
 
-        for (row in 0 until WidgetIds.WEEK_ROWS.size) {
-            val visible = row < weekCount
-            views.setViewVisibility(
-                WidgetIds.WEEK_ROWS[row],
-                if (visible) View.VISIBLE else View.GONE
-            )
-            if (!visible) continue
+        for (row in 0 until WEEK_COUNT) {
+            // 旧版本可能把第 5/6 行设成 GONE；这里显式恢复所有行可见。
+            views.setViewVisibility(WidgetIds.WEEK_ROWS[row], View.VISIBLE)
 
             repeat(7) { column ->
                 val cell = snapshot.cells[row * 7 + column]
