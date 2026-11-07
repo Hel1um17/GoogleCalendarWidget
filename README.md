@@ -36,6 +36,10 @@
 
 ## 使用教程
 
+下载安装包 [点我下载](https://github.com/Hel1um17/GoogleCalendarWidget/releases/download/V1.0/GoogleCalendarWidget.apk)
+
+或者打开Release看看我写的小骚话 [在这呢](https://github.com/Hel1um17/GoogleCalendarWidget/releases) 再下载
+
 安装软件后打开，授权读取日历信息
 
 > 强烈建议手动开启自启动选项，否则小部件可能不会正常刷新
