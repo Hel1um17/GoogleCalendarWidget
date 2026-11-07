@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="widget_background">#FF1E1F22</color>
+    <color name="widget_border">#33FFFFFF</color>
+    <color name="screen_background">#FF111318</color>
+
+    <color name="text_primary">#FFF2F3F5</color>
+    <color name="text_secondary">#FFAEB3BA</color>
+    <color name="text_muted">#FF6B7078</color>
+    <color name="divider">#33FFFFFF</color>
+
+    <color name="accent">#FF8AB4F8</color>
+    <color name="today_text">#FF202124</color>
+    <color name="event_chip_bg">#FF8AB4F8</color>
+    <color name="event_chip_text">#FF10233F</color>
+    <color name="holiday_event_chip_bg">#FF59AF80</color>
+    <color name="holiday_chip_text">#FFFFFFFF</color>
+</resources>

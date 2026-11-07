@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">日历小部件</string>
+    <string name="widget_name">日历 · 4x6</string>
+    <string name="widget_description">显示本月日历和每天的日程</string>
+
+    <string name="month_prev">‹</string>
+    <string name="month_next">›</string>
+    <string name="month_prev_desc">上个月</string>
+    <string name="month_next_desc">下个月</string>
+
+    <string name="week_mon">一</string>
+    <string name="week_tue">二</string>
+    <string name="week_wed">三</string>
+    <string name="week_thu">四</string>
+    <string name="week_fri">五</string>
+    <string name="week_sat">六</string>
+    <string name="week_sun">日</string>
+
+    <string name="month_title_format">%1$d年%2$d月</string>
+    <string name="month_placeholder">2026年1月</string>
+
+    <string name="untitled_event">（无标题）</string>
+
+    <string name="widget_permission_short">点按授权读取日历</string>
+    <string name="widget_read_error">读取日程失败</string>
+
+    <string name="main_title">日历小部件</string>
+    <string name="main_subtitle">4x6 桌面日历 · Calendar Provider</string>
+    <string name="main_status_granted">已获得日历读取权限。小部件会显示系统日历中已勾选显示的日程，包括已同步的共享 Google 日历。\n\n如果日程没有及时更新，可以点击下方按钮手动刷新，或重新调整一次小部件大小。</string>
+    <string name="main_status_denied">尚未获得日历读取权限。没有权限时，小部件仍会显示当月日期，但无法读取日程。\n\n授权后请返回桌面查看。</string>
+    <string name="main_grant">授予读取日历权限</string>
+    <string name="main_refresh">刷新小部件</string>
+    <string name="main_open_settings">打开应用设置</string>
+    <string name="main_refreshed">已发送刷新请求，请返回桌面查看。</string>
+    <string name="main_footer">说明：\n• 只读取系统日历中“已勾选显示”的日历；共享的 Google 日历需要先在系统日历中勾选显示。\n• 部分澎湃OS / MIUI 系统需要允许本应用自启动或后台运行，午夜刷新才会更稳定。\n• 小部件内容由系统 AppWidget 宿主绘制，不同桌面主题下间距可能略有差异。</string>
+
+    <string name="permission_rationale_title">需要日历权限</string>
+    <string name="permission_rationale_message">小部件需要 READ_CALENDAR 权限，才能使用 CalendarContract.Instances 查询每天真实发生的日程（包括重复日程）。权限只用于读取，不会修改你的日历。</string>
+    <string name="continue_label">继续</string>
+</resources>
